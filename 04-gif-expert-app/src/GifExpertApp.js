@@ -19,7 +19,7 @@ const GifExpertApp = (props) => {
         {categories.map((category) => (
           <GifGrid key={category} category={category}></GifGrid>
         ))}
-      </ol>
+      </ol> 
     </>
   );
 };
