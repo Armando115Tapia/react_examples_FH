@@ -20,6 +20,13 @@ export const SimpleForm = () => {
     // console.log('se dispara solo cuando el email cambia');
   }, [email]);
 
+  useEffect(() => {
+    console.log('Componente montado');
+    return () => {
+      console.log('Componente desmontado');
+    };
+  });
+
   const handleInputChange = ({ target }) => {
     setFormState({ ...formState, [target.name]: target.value });
   };
