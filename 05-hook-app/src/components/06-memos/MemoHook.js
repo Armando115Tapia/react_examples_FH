@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import '../02-useEffect/effects.css';
 import { useCounter } from '../../hooks/useCounter';
-import { Small } from './Small';
+import { procesoPesado } from '../../helpers/ProcesoPesado';
 
-export const Memorize = () => {
-  const { counter, increment } = useCounter(10);
+export const MemoHook = () => {
+  const { counter, increment } = useCounter(5000);
   const [show, setShow] = useState(true);
+
+  const memoProcesoPesado = useMemo(() => procesoPesado(counter), [counter]);
 
   return (
     <>
-      <h3>Memorize </h3>
+      <h3>MemoHook</h3>
       <hr></hr>
-      <h1>
-        Counter: <Small value={counter}></Small>
-      </h1>
+      <h3>
+        Counter:<small>{counter}</small>
+      </h3>
+      <p>{memoProcesoPesado}</p>
       <button
         onClick={() => {
           increment();
