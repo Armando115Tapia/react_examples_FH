@@ -13,9 +13,11 @@ export const AppRouter = () => {
     <Router>
       <div>
         <Switch>
-          <Route path="/auth" component={AuthRouter}></Route>
-          <Route exact path="/" component={JournalScreen}></Route>
-          <Redirect to="/auth/login"></Redirect>
+          <Route path="/auth" component={AuthRouter} />
+
+          <Route exact path="/" component={JournalScreen} />
+
+          <Redirect to="/auth/login" />
         </Switch>
       </div>
     </Router>
