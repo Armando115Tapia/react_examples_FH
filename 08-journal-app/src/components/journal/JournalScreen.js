@@ -1,12 +1,15 @@
 import React from 'react';
 import { Sidebar } from './Sidebar';
+import { NoteScreen } from '../notes/NoteScreen';
+// import { NothingSelected } from './NothingSelected';
 
 export const JournalScreen = () => {
   return (
     <div className="journal__main-content">
       <Sidebar></Sidebar>
       <main>
-        <h1>Main Content</h1>
+        {/* <NothingSelected></NothingSelected> */}
+        <NoteScreen></NoteScreen>
       </main>
     </div>
   );
