@@ -1,7 +1,12 @@
 import React from 'react';
 import { NotesAppBar } from './NotesAppBar';
+import { useForms } from '../../hooks/useForms';
 
 export const NoteScreen = () => {
+  const initialForm = { titleNote: '', contentNote: '', imagenNote: '' };
+  const [formValues, handleInputChange, reset] = useForms(initialForm);
+  const { titleNote, contentNote, imagenNote } = formValues;
+
   return (
     <div className="notes__main-content">
       <NotesAppBar></NotesAppBar>
@@ -11,10 +16,14 @@ export const NoteScreen = () => {
           placeholder="Some awesome title"
           className="notes__title--input"
           autoComplete="off"
+          name="title"
+          value={titleNote}
         ></input>
         <textarea
           placeholder="What happen today??"
           className="notes__textarea"
+          name="content"
+          value={contentNote}
         ></textarea>
         <div className="notes__image">
           <img
