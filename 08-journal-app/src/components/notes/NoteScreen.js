@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { NotesAppBar } from './NotesAppBar';
+import { useSelector } from 'react-redux';
 import { useForms } from '../../hooks/useForms';
 
 export const NoteScreen = () => {
   // const initialForm = { titleNote: '', contentNote: '', imagenNote: '' };
-  // const [formValues] = useForms(initialForm);
   // const { titleNote, contentNote } = formValues;
+
+  const { active: note } = useSelector((state) => state.notes);
+  const [formValues, handleInputChange, reset] = useForms(note);
+  const { title, body, url } = formValues;
+
+  const activeId = useRef(note.id);
+
+  useEffect(() => {
+    if (note.id !== activeId.current) {
+      reset(note);
+      activeId.current = note.id;
+    }
+  }, [note, reset]);
 
   return (
     <div className="notes__main-content">
@@ -17,20 +30,21 @@ export const NoteScreen = () => {
           className="notes__title--input"
           autoComplete="off"
           name="title"
-          // value={titleNote}
+          value={title}
+          onChange={handleInputChange}
         ></input>
         <textarea
           placeholder="What happen today??"
           className="notes__textarea"
           name="content"
-          // value={contentNote}
+          value={body}
+          onChange={handleInputChange}
         ></textarea>
-        <div className="notes__image">
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRgtYdPpgOquAVSnyKJpDVGVlQhj_cdBvyLdw&usqp=CAU"
-            alt=""
-          ></img>
-        </div>
+        {url && (
+          <div className="notes__image">
+            <img src={`${url}`} alt=""></img>
+          </div>
+        )}
       </div>
     </div>
   );

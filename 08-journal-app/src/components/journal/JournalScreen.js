@@ -6,6 +6,7 @@ import { NothingSelected } from '../journal/NothingSelected';
 
 export const JournalScreen = () => {
   const { active } = useSelector((state) => state.notes);
+
   return (
     <div className="journal__main-content">
       <Sidebar></Sidebar>
@@ -15,8 +16,6 @@ export const JournalScreen = () => {
         ) : (
           <NothingSelected></NothingSelected>
         )}
-
-        <NoteScreen></NoteScreen>
       </main>
     </div>
   );

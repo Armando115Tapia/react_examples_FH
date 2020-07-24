@@ -8,8 +8,8 @@ export const JournalEntries = () => {
 
   return (
     <div className="jounrnal__entries">
-      {notes.map((e) => (
-        <JournalEntry key={e}></JournalEntry>
+      {notes.map((note) => (
+        <JournalEntry key={note.id} {...note}></JournalEntry>
       ))}
     </div>
   );
