@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { NotesAppBar } from './NotesAppBar';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useForms } from '../../hooks/useForms';
+import { activeNote, startDeleting } from '../../actions/notes';
 
 export const NoteScreen = () => {
   // const initialForm = { titleNote: '', contentNote: '', imagenNote: '' };
@@ -9,7 +10,8 @@ export const NoteScreen = () => {
 
   const { active: note } = useSelector((state) => state.notes);
   const [formValues, handleInputChange, reset] = useForms(note);
-  const { title, body, url } = formValues;
+  const { title, body, id } = formValues;
+  const dispatch = useDispatch();
 
   const activeId = useRef(note.id);
 
@@ -19,6 +21,14 @@ export const NoteScreen = () => {
       activeId.current = note.id;
     }
   }, [note, reset]);
+
+  useEffect(() => {
+    dispatch(activeNote(formValues.id, formValues));
+  }, [formValues, dispatch]);
+
+  const handleDelete = () => {
+    dispatch(startDeleting(id));
+  };
 
   return (
     <div className="notes__main-content">
@@ -36,16 +46,19 @@ export const NoteScreen = () => {
         <textarea
           placeholder="What happen today??"
           className="notes__textarea"
-          name="content"
+          name="body"
           value={body}
           onChange={handleInputChange}
         ></textarea>
-        {url && (
+        {note.url && (
           <div className="notes__image">
-            <img src={`${url}`} alt=""></img>
+            <img src={`${note.url}`} alt=""></img>
           </div>
         )}
       </div>
+      <button onClick={handleDelete} className="btn btn-danger">
+        Delete a note{' '}
+      </button>
     </div>
   );
 };
